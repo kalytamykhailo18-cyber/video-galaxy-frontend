@@ -5,6 +5,7 @@ import Watch from './pages/Watch';
 import Search from './pages/Search';
 import Login from './pages/Login';
 import Member from './pages/Member';
+import Videos from './pages/Videos';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/" element={<Index />} />
         <Route path="/watch/:id" element={<Watch />} />
         <Route path="/search" element={<Search />} />
+        <Route path="/videos" element={<Videos />} />
         <Route path="/login" element={<Login />} />
         <Route path="/member" element={<Member />} />
       </Routes>

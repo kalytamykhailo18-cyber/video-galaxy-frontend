@@ -1,3 +1,6 @@
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchContent } from '../features/content/contentSlice';
 import ContentGrid from '../components/ContentGrid';
 import Sidebar from '../components/Sidebar';
 import BottomBar from '../components/BottomBar';
@@ -13,6 +16,13 @@ import SEO from '../components/SEO';
  * - Black and white color scheme
  */
 export default function Index() {
+  const dispatch = useDispatch();
+  const { items, loading } = useSelector((state) => state.content);
+
+  useEffect(() => {
+    dispatch(fetchContent({ limit: 50, offset: 0 }));
+  }, [dispatch]);
+
   return (
     <div className="min-h-screen bg-black text-white">
       <SEO />
@@ -28,7 +38,11 @@ export default function Index() {
           </div>
 
           {/* Content grid - all previews in 4:3 ratio */}
-          <ContentGrid />
+          {loading ? (
+            <div className="text-center text-gray-400 py-20">Loading content...</div>
+          ) : (
+            <ContentGrid items={items} />
+          )}
         </div>
       </div>
 

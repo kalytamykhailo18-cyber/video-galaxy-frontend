@@ -95,7 +95,7 @@ export default function Watch() {
                 <span className="text-gray-600">Type:</span> <span className="text-white">{content.type}</span>
               </div>
               <div className="text-gray-500">
-                <span className="text-gray-600">Ratio:</span> <span className="text-white">{content.ratio}</span>
+                <span className="text-gray-600">Ratio:</span> <span className="text-white">{content.aspectRatio || content.ratio}</span>
               </div>
               <div className="text-gray-500">
                 <span className="text-gray-600">Date:</span> <span className="text-white">{new Date(content.uploadDate).toLocaleDateString()}</span>

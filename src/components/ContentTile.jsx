@@ -7,15 +7,10 @@ import { Link } from 'react-router-dom';
  */
 export default function ContentTile({ content }) {
   const getMediaUrl = (filenameRoot) => {
-    const mediaMap = {
-      'birds4': 'https://drive.google.com/uc?export=view&id=1gN-R2t4VPWI00lsfWRXPMegUrTvZZz8B',
-      'birds6': 'https://drive.google.com/uc?export=view&id=1HjVMXHVPO9cGGt9wz8QV5SJjnvdMKKc3',
-      'birds7': 'https://drive.google.com/uc?export=view&id=1I_K-PDHeSfOrwMxN3FJW3dWY0prwvTBk',
-      'cats2': 'https://drive.google.com/uc?export=view&id=1gjZMXxnOQxY2aDcSbKGBrT1nVICFsFbC',
-      'Maestro': 'https://drive.google.com/uc?export=view&id=1PGVGfW0Mb4A7id259Kvg2GnHZhZi5TsO',
-      'chickens1': 'https://drive.google.com/uc?export=view&id=1uT_2XE35KYPCcBxeqIhzKL5tWWwnv9u7',
-    };
-    return mediaMap[filenameRoot] || 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300"%3E%3Crect fill="%23000" width="400" height="300"/%3E%3C/svg%3E';
+    if (!filenameRoot) return 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300"%3E%3Crect fill="%23000" width="400" height="300"/%3E%3C/svg%3E';
+
+    // Always use -a variant to avoid 404 errors since not all variants exist
+    return `/images/${filenameRoot}-a.jpg`;
   };
 
   return (
@@ -28,7 +23,12 @@ export default function ContentTile({ content }) {
         alt={content.imgAltTxt || content.title}
         className="w-full h-full object-cover"
         onError={(e) => {
-          e.target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300"%3E%3Crect fill="%23000" width="400" height="300"/%3E%3C/svg%3E';
+          // Fallback to -a variant if random variant doesn't exist
+          if (!e.target.src.includes('-a.jpg') && content.filenameRoot) {
+            e.target.src = `/images/${content.filenameRoot}-a.jpg`;
+          } else {
+            e.target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300"%3E%3Crect fill="%23000" width="400" height="300"/%3E%3C/svg%3E';
+          }
         }}
       />
 
