@@ -40,7 +40,7 @@ function Sidebar() {
       onMouseLeave={() => setIsExpanded(false)}
     >
       <div className="flex items-center justify-between px-4 mb-8">
-        <Link to="/" className="flex items-center gap-3">
+        <Link to="/" className="flex items-center gap-3" onClick={() => setIsExpanded(false)}>
           <div className="w-8 h-8 bg-white rounded flex items-center justify-center flex-shrink-0">
             <span className="text-black font-bold text-sm">SP</span>
           </div>
